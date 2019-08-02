@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="&gt;&gt;&gt; import andrew">
+    <meta name="description" content="Andrew Kim&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://ahjumma.github.io">
+    <title>
+  High-level Overview of Elasticsearch · andrewkim
+</title>
+
+    <link rel="canonical" href="https://ahjumma.github.io/posts/elastic-search-terminologies/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://ahjumma.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://ahjumma.github.io">
+      andrewkim
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/categories/">Categories</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">High-level Overview of Elasticsearch</h1>
+      <h2 class="date">August 25, 2018</h2>
+
+      <div class="categories">
+      
+        <h6><a href="https://ahjumma.github.io/categories/elasticsearch">#Elasticsearch</a></h6>
+      
+      </div>
+      
+    </header>
+
+    
+
+<hr />
+
+<h2 id="what-this-post-is-about">What this post is about</h2>
+
+<p>This is to summarize key concepts used in understanding Elasticsearch.</p>
+
+<p>In Elasticsearch, the term <strong>index</strong> appears quite often in different contexts. This post is to clear this ambiguity and to facilitate understanding what Elasticsearch is about.</p>
+
+<h2 id="what-is-elasticsearch">What is Elasticsearch</h2>
+
+<ol>
+<li>A <strong>NoSQL</strong> database specialized for extremely fast search capability.</li>
+<li>A <strong>distributed system</strong> where you may shard and replicate your database content throughout your cluster.</li>
+</ol>
+
+<h2 id="key-concepts">Key Concepts</h2>
+
+<ol>
+<li>Elasticsearch Index</li>
+<li>Lucene</li>
+<li>Shard</li>
+<li>Replication</li>
+</ol>
+
+<h5 id="elasticsearch-index">Elasticsearch Index</h5>
+
+<p><strong>Elasticsearch Index</strong> is logically equivalent to SQL table.</p>
+
+<p>Since Elasticsearch is a NoSQL database, documents do not have a fixed schema. However, similar to how SQL tables contain similarly typed information, you group your documents in different Elasticsearch Indexes.</p>
+
+<p>When you insert/update a document from your Elasticsearch Index, it is called <strong>indexing your document</strong> into your Elasticsearch Index.</p>
+
+<h5 id="lucene">Lucene</h5>
+
+<p>If you are coming from SQL background, you would know InnoDB is MySQL&rsquo;s search engine which indexes your table entries allowing for a near instantaneous look-up.</p>
+
+<p>What happens underneath is that your primary keys are used to build a tree where each node in the tree points to their corresponding table entry.</p>
+
+<p>This tree building step is called <strong>indexing</strong>.</p>
+
+<p><strong>Lucene</strong> is a Java-based search engine backed by Apache Software Foundation.</p>
+
+<p>What Lucene does is it basically breaks down your document into many terms and maps each term to your original document.
+For example, &ldquo;Hello World&rdquo; is tokenized(broken down) into two terms: &ldquo;Hello&rdquo; and &ldquo;World&rdquo;. Then each term would be pointing toward the original sentence &ldquo;Hello World&rdquo;.</p>
+
+<p>This concept is similar to SQL database&rsquo;s indexing. Lucene builds its index tree using the tokenized terms to point toward the original document.</p>
+
+<p>Therefore, when you are indexing your document, you are essentially building a new updated Lucene search index.</p>
+
+<h5 id="shard">Shard</h5>
+
+<p>In SQL databases, sharding is about breaking down your data source into multiple servers for scaling your database to reduce loads on each of your database servers.</p>
+
+<p>In Elasticsearch, a single Lucene Index is basically an Elasticsearch Index&rsquo;s shard. If your Elasticsearch Index has two shards, it means your Index is broken into two Ludene Indexes.</p>
+
+<p>By breaking into multiple Lucene Indexes, you can execute parallel operations across your shards.</p>
+
+<p>To put it to summary, <strong>An Elasticsearch Index is made up of one or more Lucene Indexes</strong>.</p>
+
+<h5 id="replication">Replication</h5>
+
+<p>When managing your database, you must be ready to handle failure scenarios.</p>
+
+<p>Your server may die due to hardware problem, or your connection to the database can be shut off due to power outage or network failures.</p>
+
+<p>In Elasticsearch, it allows replicating your shards across the cluster.</p>
+
+<p>The very basic benefit of replicating your shards is <strong>the chance of losing your data is reduced</strong>.</p>
+
+<p>Another benefit is that with more shards, <strong>more parallel search operations can be executed</strong>.</p>
+
+<h2 id="summary">Summary</h2>
+
+<ol>
+<li>Elasticsearch uses Lucene as its search engine</li>
+<li>Elasticsearch Index is made up of one or more Lucene Indexes.</li>
+<li>Lucene builds an index tree by tokenizing your document to use it as the search key.</li>
+<li>Sharding and Replication allows horizontal scalability with high fault tolerance.</li>
+</ol>
+
+<p>As you can see the term <strong>index</strong>, is used in different contexts along different layers of the Elasticsearch architecture.</p>
+
+<p>Following sentence should summarize your understanding of this post:</p>
+
+<p><strong>In Elasticsearch, you index your document into an Elasticsearch Index where Lucene shard is updated with a new index tree for fast loop up performance.</strong></p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<ol>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html">Elasticsearch Basic Concepts</a></li>
+<li><a href="https://www.elastic.co/blog/found-elasticsearch-top-down">Elasticsearch from the Top Down</a></li>
+<li><a href="https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up">Elasticsearch from the Bottom Up</a></li>
+</ol>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>. 
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

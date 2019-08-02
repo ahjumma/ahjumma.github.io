@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="&gt;&gt;&gt; import andrew">
+    <meta name="description" content="Andrew Kim&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://ahjumma.github.io">
+    <title>
+  Jekyll to Wordpress to Hugo · andrewkim
+</title>
+
+    <link rel="canonical" href="https://ahjumma.github.io/posts/first-post/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://ahjumma.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://ahjumma.github.io">
+      andrewkim
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/categories/">Categories</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Jekyll to Wordpress to Hugo</h1>
+      <h2 class="date">June 24, 2018</h2>
+
+      <div class="categories">
+      
+        <h6><a href="https://ahjumma.github.io/categories/hugo">#Hugo</a></h6>
+      
+        <h6><a href="https://ahjumma.github.io/categories/travisci">#TravisCI</a></h6>
+      
+      </div>
+      
+    </header>
+
+    
+
+<hr />
+
+<h3 id="why-i-ditched-jekyll-and-wordpress">Why I ditched Jekyll and Wordpress</h3>
+
+<p>When I first created my personal blog about 3 years ago, I chose to use <a href="https://jekyllrb.com/">Jekyll</a> hosted on <a href="https://pages.github.com/">Github Pages</a>.</p>
+
+<p>At the time, I was not confident enough to modify my Jekyll theme to fit into my needs, and I decided to move to <a href="https://hub.docker.com/_/wordpress/">dockerized Wordpress</a> hosted on my own AWS EC2 server.</p>
+
+<p>Wordpress was easy to use due to the out-of-box web interface for blog administration. Its export/import feature was also beneficial for backups and migrations. However, hosting my own Wordpress site started to cost me once my AWS free trial was over.</p>
+
+<p>While thinking about going back to Jekyll, I found about <a href="https://gohugo.io/">Hugo</a>. I was interested in Hugo due to its fast growth and started looking into the documentations.</p>
+
+<p>Now that I have learnt a lot on front-end development ever since my first Jekyll project, I was confident that I could modify a Hugo theme to satisfy the following personal requirements.</p>
+
+<h3 id="requirements">Requirements</h3>
+
+<ol>
+<li>Simple and readable Hugo theme</li>
+<li>Ability to categorize blog posts</li>
+<li>Ability to customize the about page</li>
+</ol>
+
+<p>While going through Hugo Themes, I found <a href="https://github.com/luizdepra/hugo-coder">Coder theme</a>. It had pagination feature of blog posts, but it was lacking my requirement #2 and #3.</p>
+
+<p>I decided to create my own theme based on Coder, and this is how I have done it.</p>
+
+<h3 id="modifying-hugo-theme">Modifying Hugo Theme</h3>
+
+<p>To enable categorized blog posts, we need to talk about Hugo&rsquo;s <a href="https://gohugo.io/content-management/taxonomies/">Taxonomy system</a>.</p>
+
+<p>Hugo already has built-in taxonomy feature for categorization of blog posts, and you can enable it by adding following lines to your <strong>config.toml</strong> file.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml">[taxonomies]
+  category = <span style="color:#0ff;font-weight:bold">&#34;categories&#34;</span>
+  tag = <span style="color:#0ff;font-weight:bold">&#34;tags&#34;</span></code></pre></div>
+<p>After enabling taxonomies, you need to create view templates for categories.</p>
+
+<p>In <strong>themes/coder/layouts/</strong> directory, create a new directory named <strong>categories</strong> with <em>list.html</em> and <em>category.html</em>.</p>
+
+<p><em>list.html</em> is for listing all categories, and <em>category.html</em> is used for listing blog posts for a single category.</p>
+
+<p>Once you are done, you may add a link to /categories/ in your navigation bar by modifying the <strong>config.toml</strong> like following example.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#007f7f"># Menu links</span>
+[[menu.main]]
+    name = <span style="color:#0ff;font-weight:bold">&#34;Blog&#34;</span>
+    weight = <span style="color:#ff0;font-weight:bold">1</span>
+    url  = <span style="color:#0ff;font-weight:bold">&#34;/posts/&#34;</span>
+[[menu.main]]
+    name = <span style="color:#0ff;font-weight:bold">&#34;Categories&#34;</span>
+    weight = <span style="color:#ff0;font-weight:bold">2</span>
+    url = <span style="color:#0ff;font-weight:bold">&#34;/categories/&#34;</span>
+[[menu.main]]
+    name = <span style="color:#0ff;font-weight:bold">&#34;About&#34;</span>
+    weight = <span style="color:#ff0;font-weight:bold">3</span>
+    url = <span style="color:#0ff;font-weight:bold">&#34;/about/&#34;</span></code></pre></div>
+<p>I have also modified the blog post template to list categories of each post. However, I will leave a link to my repository rather than going into the details.</p>
+
+<h3 id="deploying-on-github-pages-manually">Deploying on Github Pages Manually</h3>
+
+<p>Hugo has a <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">detailed guide</a> on deploying your website on Github Pages.</p>
+
+<ol>
+<li>Delete <em>public/</em> directory from the project root directory if there is one.</li>
+<li>Add your github.io repository as a submodule</li>
+<li>Build your static website by running <strong>hugo</strong>.</li>
+<li>cd into the newly created <em>public/</em> directory</li>
+<li>Add changes, commit staged, and push to master branch of your github.io repo.</li>
+</ol>
+
+<p>Once you have set a submodule in your root project directory, do not delete <em>public/</em> directory.</p>
+
+<p>The reason why we deleted it at first place was simply to add a git submodule pointing to a directory named <em>public/</em> which will be populated by Hugo later.</p>
+
+<p>Whenever you want to update your github.io page, simply go through steps #3 ~ #5.</p>
+
+<h3 id="deploying-on-gibhub-pages-with-travis-ci">Deploying on Gibhub Pages with Travis CI</h3>
+
+<p>I have used blog posts by <a href="https://www.metachris.com/2017/04/continuous-deployment-hugo---travis-ci--github-pages/">Chris Hager</a> and <a href="https://www.martinkaptein.com/blog/hugo-with-travis-ci-on-gh-pages/">Martin Kaptein</a> to write up my Travis CI configuration file.</p>
+
+<p>For people who are not familiar with Continuous Integration(CI) tool such as Jenkins and Travis CI, a CI tool automates testing, building, and deploying your projects.</p>
+
+<p>For my personal use, I chose Travis CI to do this job due to Travis CI&rsquo;s great web-based GUI tool.</p>
+
+<h5 id="create-travis-ci-config-file">Create Travis CI config file</h5>
+
+<p>Firstly, you need to add <strong>.travis.yml</strong> file in your root directory of the repository.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language: go
+
+go:
+  - master <span style="color:#007f7f"># This uses automatically the latest version of go</span>
+
+install:
+  - go get github.com/spf13/hugo <span style="color:#007f7f"># This provides the latest version of Hugo to Travis CI</span>
+  - rm -rf public || exit <span style="color:#ff0;font-weight:bold">0</span>
+
+script:
+  - hugo <span style="color:#007f7f"># This commands builds your website on travis</span>
+
+deploy:
+  local_dir: public <span style="color:#007f7f"># Default static site output dir for Hugo</span>
+  repo: taeyeonkim90/taeyeonkim90.github.io <span style="color:#007f7f"># This is the slug of the repo you want to deploy your site to</span>
+  target_branch: master <span style="color:#007f7f"># GitHub pages branch to deploy to (in other cases it can be gh-pages)</span>
+  provider: pages
+  skip_cleanup: <span style="color:#fff;font-weight:bold">true</span>
+  github_token: $GITHUB_TOKEN <span style="color:#007f7f"># This is the authentication which you will setup in the next step in travis-ci dashboard</span>
+  email: taeyeonkim90@gmail.com
+  name: <span style="color:#0ff;font-weight:bold">&#34;Andrew Kim&#34;</span>
+  on:
+    branch: master</code></pre></div>
+<ol>
+<li><strong>go:</strong> statement tells Travis CI to use an environment with go compiler pre-installed</li>
+<li><strong>install:</strong> statement tells Travis CI to install dependencies which is required for buliding this project</li>
+<li><strong>script:</strong> can be thought as the build step prior to the deployment</li>
+<li><strong>deploy:</strong> is executed when the build is successful. In this example, Travis CI already has a pre-configured deployment strategy set up for Github Pages. <strong>provider: pages</strong> states we will be deploying on Github Pages. The rest is self explanatory.</li>
+</ol>
+
+<h5 id="generate-github-access-token">Generate Github Access Token</h5>
+
+<p><strong>$GITHUB_TOKEN</strong> is what will be used by Travis CI to be able to push to your Github Pages repository.
+Firstly, you need to generate this token on your Github.</p>
+
+<p>Go into your <em>global settings &gt; Developer settings &gt; Personal access tokens</em>.</p>
+
+<p>Your new access token should have all <strong>repo</strong> permissions checked and no more is required.</p>
+
+<p>Save the token, then copy the generated access token.</p>
+
+<h5 id="register-github-access-token-on-travis-ci">Register Github Access Token on Travis CI</h5>
+
+<p>Move to the Travis CI homepage where you will be able to see your blogging repository.</p>
+
+<p>In your blogging repository visible on Travis CI, go into <em>More options &gt; Settings</em>.</p>
+
+<p>Add an environnment variable named, <strong>GITHUB_TOKEN</strong> and add your previously generated Github access token.</p>
+
+<p>You are almost done in this point.</p>
+
+<h5 id="remove-git-submodules-on-public-directory">Remove git submodules on /public/ directory</h5>
+
+<p>In my experience, leaving a git submodule for your /public/ directory caused permission problem when Travis CI was attempting to pull in the git submodules recursively due to SSH key not setup on Travis CI.</p>
+
+<p>To by-pass this, my crude approach was simply to delete the submodule in your git cache, /public/ directory, and git modules.</p>
+
+<p>Once I removed all submodules in my project, I pushed my updated project, Travis CI detected the push, Travis CI saw <strong>.travis.yml</strong> config, and Travis CI built and deployed the result onto my Github Pages</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>. 
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

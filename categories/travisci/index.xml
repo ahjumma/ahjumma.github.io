@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TravisCI on andrewkim</title>
+    <link>https://ahjumma.github.io/categories/travisci/</link>
+    <description>Recent content in TravisCI on andrewkim</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 24 Jun 2018 23:34:34 -0700</lastBuildDate>
+    
+	<atom:link href="https://ahjumma.github.io/categories/travisci/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jekyll to Wordpress to Hugo</title>
+      <link>https://ahjumma.github.io/posts/first-post/</link>
+      <pubDate>Sun, 24 Jun 2018 23:34:34 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/first-post/</guid>
+      <description>Why I ditched Jekyll and Wordpress When I first created my personal blog about 3 years ago, I chose to use Jekyll hosted on Github Pages.
+At the time, I was not confident enough to modify my Jekyll theme to fit into my needs, and I decided to move to dockerized Wordpress hosted on my own AWS EC2 server.
+Wordpress was easy to use due to the out-of-box web interface for blog administration.</description>
+    </item>
+    
+  </channel>
+</rss>

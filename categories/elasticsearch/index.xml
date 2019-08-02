@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elasticsearch on andrewkim</title>
+    <link>https://ahjumma.github.io/categories/elasticsearch/</link>
+    <description>Recent content in Elasticsearch on andrewkim</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 25 Aug 2018 13:58:43 -0700</lastBuildDate>
+    
+	<atom:link href="https://ahjumma.github.io/categories/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>High-level Overview of Elasticsearch</title>
+      <link>https://ahjumma.github.io/posts/elastic-search-terminologies/</link>
+      <pubDate>Sat, 25 Aug 2018 13:58:43 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/elastic-search-terminologies/</guid>
+      <description>What this post is about This is to summarize key concepts used in understanding Elasticsearch.
+In Elasticsearch, the term index appears quite often in different contexts. This post is to clear this ambiguity and to facilitate understanding what Elasticsearch is about.
+What is Elasticsearch  A NoSQL database specialized for extremely fast search capability. A distributed system where you may shard and replicate your database content throughout your cluster.  Key Concepts  Elasticsearch Index Lucene Shard Replication  Elasticsearch Index Elasticsearch Index is logically equivalent to SQL table.</description>
+    </item>
+    
+  </channel>
+</rss>

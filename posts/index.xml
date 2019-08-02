@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on andrewkim</title>
+    <link>https://ahjumma.github.io/posts/</link>
+    <description>Recent content in Posts on andrewkim</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 25 Aug 2018 13:58:43 -0700</lastBuildDate>
+    
+	<atom:link href="https://ahjumma.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>High-level Overview of Elasticsearch</title>
+      <link>https://ahjumma.github.io/posts/elastic-search-terminologies/</link>
+      <pubDate>Sat, 25 Aug 2018 13:58:43 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/elastic-search-terminologies/</guid>
+      <description>What this post is about This is to summarize key concepts used in understanding Elasticsearch.
+In Elasticsearch, the term index appears quite often in different contexts. This post is to clear this ambiguity and to facilitate understanding what Elasticsearch is about.
+What is Elasticsearch  A NoSQL database specialized for extremely fast search capability. A distributed system where you may shard and replicate your database content throughout your cluster.  Key Concepts  Elasticsearch Index Lucene Shard Replication  Elasticsearch Index Elasticsearch Index is logically equivalent to SQL table.</description>
+    </item>
+    
+    <item>
+      <title>Advanced work flow for Docker (Practical Docker: 4)</title>
+      <link>https://ahjumma.github.io/posts/practical-docker-4/</link>
+      <pubDate>Tue, 26 Jun 2018 18:34:40 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/practical-docker-4/</guid>
+      <description>Overview of Practical Docker Series This Practical Docker series is a step-by-step conceptual guide for people who is considering using Docker in their projects.
+Starting from this introductory post, I will be writing following posts leading to practical usage of Docker in real life.
+ Introduction to Docker (Practical Docker: 1) Dockerizing your project (Practical Docker: 2) Docker work flow in your team (Practical Docker: 3) Advanced work flow for Docker (Practical Docker: 4)  practical docker 4 1.</description>
+    </item>
+    
+    <item>
+      <title>Docker work flow in your team (Practical Docker: 3)</title>
+      <link>https://ahjumma.github.io/posts/practical-docker-3/</link>
+      <pubDate>Tue, 26 Jun 2018 18:23:07 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/practical-docker-3/</guid>
+      <description>Overview of Practical Docker Series This Practical Docker series is a step-by-step conceptual guide for people who is considering using Docker in their projects.
+Starting from this introductory post, I will be writing following posts leading to practical usage of Docker in real life.
+ Introduction to Docker (Practical Docker: 1) Dockerizing your project (Practical Docker: 2) Docker work flow in your team (Practical Docker: 3) Advanced work flow for Docker (Practical Docker: 4)  practical docker 3 4.</description>
+    </item>
+    
+    <item>
+      <title>Dockerizing your project (Practical Docker: 2)</title>
+      <link>https://ahjumma.github.io/posts/practical-docker-2/</link>
+      <pubDate>Tue, 26 Jun 2018 18:22:59 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/practical-docker-2/</guid>
+      <description>Overview of Practical Docker Series This Practical Docker series is a step-by-step conceptual guide for people who is considering using Docker in their projects.
+ Introduction to Docker (Practical Docker: 1) Dockerizing your project (Practical Docker: 2) Docker work flow in your team (Practical Docker: 3) Advanced work flow for Docker (Practical Docker: 4)  What is covered in this post In this second post of the Practical Docker series, we will go over how to create your Docker image and run it on your machine.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Docker (Practical Docker: 1)</title>
+      <link>https://ahjumma.github.io/posts/practical-docker-1/</link>
+      <pubDate>Tue, 26 Jun 2018 17:59:21 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/practical-docker-1/</guid>
+      <description>Overview of Practical Docker Series This Practical Docker series is a step-by-step conceptual guide for people who is considering using Docker in their projects.
+Starting from this introductory post, I will be writing following posts leading to practical usage of Docker in real life.
+ Introduction to Docker (Practical Docker: 1) Dockerizing your project (Practical Docker: 2) Docker work flow in your team (Practical Docker: 3) Advanced work flow for Docker (Practical Docker: 4)  What is Docker Docker is a container technology.</description>
+    </item>
+    
+    <item>
+      <title>Jekyll to Wordpress to Hugo</title>
+      <link>https://ahjumma.github.io/posts/first-post/</link>
+      <pubDate>Sun, 24 Jun 2018 23:34:34 -0700</pubDate>
+      
+      <guid>https://ahjumma.github.io/posts/first-post/</guid>
+      <description>Why I ditched Jekyll and Wordpress When I first created my personal blog about 3 years ago, I chose to use Jekyll hosted on Github Pages.
+At the time, I was not confident enough to modify my Jekyll theme to fit into my needs, and I decided to move to dockerized Wordpress hosted on my own AWS EC2 server.
+Wordpress was easy to use due to the out-of-box web interface for blog administration.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="&gt;&gt;&gt; import andrew">
+    <meta name="description" content="Andrew Kim&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://ahjumma.github.io">
+    <title>
+  Dockerizing your project (Practical Docker: 2) · andrewkim
+</title>
+
+    <link rel="canonical" href="https://ahjumma.github.io/posts/practical-docker-2/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://ahjumma.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://ahjumma.github.io">
+      andrewkim
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/categories/">Categories</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Dockerizing your project (Practical Docker: 2)</h1>
+      <h2 class="date">June 26, 2018</h2>
+
+      <div class="categories">
+      
+        <h6><a href="https://ahjumma.github.io/categories/docker">#Docker</a></h6>
+      
+      </div>
+      
+    </header>
+
+    
+
+<hr />
+
+<h3 id="overview-of-practical-docker-series">Overview of Practical Docker Series</h3>
+
+<p>This <strong>Practical Docker</strong> series is a step-by-step conceptual guide for people who is considering using Docker in their projects.</p>
+
+<ol>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-1/">Introduction to Docker (Practical Docker: 1)</a></li>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-2/">Dockerizing your project (Practical Docker: 2)</a></li>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-3/">Docker work flow in your team (Practical Docker: 3)</a></li>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-4/">Advanced work flow for Docker (Practical Docker: 4)</a></li>
+</ol>
+
+<hr />
+
+<h3 id="what-is-covered-in-this-post">What is covered in this post</h3>
+
+<p>In this second post of the <strong>Practical Docker</strong> series, we will go over how to create your Docker image and run it on your machine.</p>
+
+<p>As a simple tutorial, we will create a lightweight Python web application which will be later loaded on your custom Docker image.</p>
+
+<h3 id="install-docker">Install Docker</h3>
+
+<p>First, install <a href="https://docs.docker.com/install/">Docker Community Edition (CE)</a> compatible to your operating system.</p>
+
+<p>Once you are done installing, execute the Docker application which will run Docker daemon in the background which is responsible for managing your Docker containers.</p>
+
+<h3 id="test-docker-installation">Test Docker installation</h3>
+
+<p>Docker provides a sample Docker image tagged as <strong>library/hello-world</strong>.</p>
+
+<p>This Docker image contains a process which prints out <em>&ldquo;Hello from Docker!&rdquo;</em> and exits.</p>
+
+<p>When you run <strong>docker run hello-world</strong>, following output should be printed.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">docker run hello-world
+
+Unable to find image &#39;hello-world:latest&#39; locally
+latest: Pulling from library/hello-world
+ca4f61b1923c: Pull complete
+Digest: sha256:ca0eeb6fb05351dfc8759c20733c91def84cb8007aa89a5bf606bc8b315b9fc7
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+...</pre></div>
+<p>Following things happend:</p>
+
+<ol>
+<li>Docker daemon was not able to find an image named <strong>hello-world</strong></li>
+<li><strong>library/hello-world</strong> image was found from Docker Hub which is a Docker image registry provided by Docker Inc.</li>
+<li>Using the <strong>library/hello-world</strong> image, Docker daemon spun up a Docker container which prints out above messages.</li>
+</ol>
+
+<h3 id="docker-cli-command-cheat-sheet">Docker CLI command cheat sheet</h3>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">## List Docker CLI commands
+docker
+docker container --help
+
+## Display Docker version and info
+docker --version
+docker version
+docker info
+
+## Execute Docker image
+docker run hello-world
+
+## List Docker images
+docker image ls
+
+## List Docker containers (running, all, all in quiet mode)
+docker container ls
+docker container ls --all
+docker container ls -aq</pre></div>
+<h3 id="let-s-dockerize-a-python-application">Let&rsquo;s Dockerize a Python application</h3>
+
+<p>First create a new directory to place a Dockerfile and a Python script</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">mkdir docker-test &amp;&amp; cd docker-test</pre></div>
+<p>Create a Python script</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">touch webapp.py</pre></div>
+<p>Write following lines inside the <strong>webapp.py</strong> script</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#fff;font-weight:bold">from</span> flask <span style="color:#fff;font-weight:bold">import</span> Flask
+app = Flask(__name__)
+
+@app.route(<span style="color:#0ff;font-weight:bold">&#34;/&#34;</span>)
+<span style="color:#fff;font-weight:bold">def</span> hello():
+    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#0ff;font-weight:bold">&#34;Hello World!&#34;</span>
+
+<span style="color:#fff;font-weight:bold">if</span> __name__ == <span style="color:#0ff;font-weight:bold">&#34;__main__&#34;</span>:
+    app.run(debug=True, host=<span style="color:#0ff;font-weight:bold">&#34;0.0.0.0&#34;</span>)</code></pre></div>
+<p>At this stage, you might ask <em>&ldquo;Don&rsquo;t we need Python and Flask Python module to run the web application?&rdquo;</em></p>
+
+<p>You are right in how we normally need to install dependencies on your local machine.</p>
+
+<p>However, in this tutorial, we will try to <strong>install all dependencies inside your custom Docker image</strong>.</p>
+
+<p>Create a Dockerfile</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">touch Dockerfile</pre></div>
+<p>Write following lines inside the <strong>Dockerfile</strong></p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#007f7f"># your base image with Python3 pre-installed</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">FROM</span><span style="color:#0ff;font-weight:bold"> python:3</span><span style="color:#f00">
+</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#007f7f"># current directory inside Docker image</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">WORKDIR</span><span style="color:#0ff;font-weight:bold"> /usr/src/app</span><span style="color:#f00">
+</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#007f7f"># copy everything in your current local directory into current directory inside the Docker image</span><span style="color:#f00">
+</span><span style="color:#f00"></span>COPY . .<span style="color:#f00">
+</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#007f7f"># install Python dependency</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">RUN</span> pip install Flask<span style="color:#f00">
+</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#007f7f"># command executed when Docker Container is created using this image</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">CMD</span><span style="color:#0ff;font-weight:bold"> python webapp.py</span></code></pre></div>
+<h3 id="create-your-own-docker-image">Create your own Docker image</h3>
+
+<p>Build your Docker image named <strong>my-first-docker-image</strong></p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">docker build -t my-first-docker-image .</pre></div>
+<p>When you execute <strong>docker image ls</strong>, you should see an image named <em>my-first-docker-image</em>.</p>
+
+<p>This image is a transportable image contains all Python dependencies and your web application.</p>
+
+<p>Anyone who has an access to this image will now be able to run your web application without the need to install your web application specific dependencies on one&rsquo;s machine.</p>
+
+<h3 id="run-a-docker-container">Run a Docker container</h3>
+
+<p>Run a Docker Container using your Docker image</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">docker run -it -p 8000:5000 --rm --name my-first-docker-container my-first-docker-image</pre></div>
+<p>Above arguments seem intimidating, however it is like telling Docker daemon to</p>
+
+<ol>
+<li>run a Docker container using my-first-docker-image</li>
+<li>name it my-first-docker-container</li>
+<li>link your local machine&rsquo;s port 8000 to port 5000 of the Docker container where internal web application is listening</li>
+</ol>
+
+<p>Open up your web browser and try accessing <strong>localhost:8000</strong> where you should see <em>Hello World!</em> on your screen.</p>
+
+<h3 id="review-of-what-we-did">Review of what we did</h3>
+
+<ol>
+<li>There are tons of base images in <a href="https://hub.docker.com/explore/">Docker Hub</a> with important dependencies pre-installed.</li>
+<li>Choose a base image you would like to use</li>
+<li>Write a Dockerfile which is an instruction set to build your custom Docker image</li>
+<li>Build your Docker image</li>
+<li>Run a Docker container using your built image</li>
+</ol>
+
+<hr />
+
+<h3 id="take-home-messages">Take home messages</h3>
+
+<ol>
+<li>Utilizing Docker allows clean deployment setup.</li>
+<li>By localizing all dependencies inside a Docker image, your application becomes very portable.</li>
+<li>For example, your QA team is able to easily start a local testing environment with the newest build.</li>
+<li>Automated deployment becomes more clean since all dependencies are localized within the Docker image.</li>
+</ol>
+
+<p>In the next post of <strong>Practical Docker</strong> series, we will elaborate on usage of Docker within your development team.</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>. 
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://ahjumma.github.io/</loc>
+    <lastmod>2018-08-25T13:58:43-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/categories/</loc>
+    <lastmod>2018-08-25T13:58:43-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/categories/elasticsearch/</loc>
+    <lastmod>2018-08-25T13:58:43-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/elastic-search-terminologies/</loc>
+    <lastmod>2018-08-25T13:58:43-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/</loc>
+    <lastmod>2018-08-25T13:58:43-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/practical-docker-4/</loc>
+    <lastmod>2018-06-26T18:34:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/categories/docker/</loc>
+    <lastmod>2018-06-26T18:34:40-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/categories/kubernetes/</loc>
+    <lastmod>2018-06-26T18:34:40-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/practical-docker-3/</loc>
+    <lastmod>2018-06-26T18:23:07-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/practical-docker-2/</loc>
+    <lastmod>2018-06-26T18:22:59-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/practical-docker-1/</loc>
+    <lastmod>2018-06-26T17:59:21-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/categories/hugo/</loc>
+    <lastmod>2018-06-24T23:34:34-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/posts/first-post/</loc>
+    <lastmod>2018-06-24T23:34:34-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/categories/travisci/</loc>
+    <lastmod>2018-06-24T23:34:34-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/about/</loc>
+    <lastmod>2018-06-23T18:51:50-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ahjumma.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

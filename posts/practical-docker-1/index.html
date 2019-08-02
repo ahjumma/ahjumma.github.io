@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="&gt;&gt;&gt; import andrew">
+    <meta name="description" content="Andrew Kim&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <base href="https://ahjumma.github.io">
+    <title>
+  Introduction to Docker (Practical Docker: 1) · andrewkim
+</title>
+
+    <link rel="canonical" href="https://ahjumma.github.io/posts/practical-docker-1/">
+
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://ahjumma.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://ahjumma.github.io/images/favicon-16x16.png" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.57.0-DEV" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://ahjumma.github.io">
+      andrewkim
+    </a>
+    
+    <ul class="navigation-list  float-right ">
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/posts/">Blog</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/categories/">Categories</a>
+      </li>
+      
+      <li class="navigation-item">
+        <a class="navigation-link" href="https://ahjumma.github.io/about/">About</a>
+      </li>
+      
+    </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Introduction to Docker (Practical Docker: 1)</h1>
+      <h2 class="date">June 26, 2018</h2>
+
+      <div class="categories">
+      
+        <h6><a href="https://ahjumma.github.io/categories/docker">#Docker</a></h6>
+      
+      </div>
+      
+    </header>
+
+    
+
+<hr />
+
+<h3 id="overview-of-practical-docker-series">Overview of Practical Docker Series</h3>
+
+<p>This <strong>Practical Docker</strong> series is a step-by-step conceptual guide for people who is considering using Docker in their projects.</p>
+
+<p>Starting from this introductory post, I will be writing following posts leading to practical usage of Docker in real life.</p>
+
+<ol>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-1/">Introduction to Docker (Practical Docker: 1)</a></li>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-2/">Dockerizing your project (Practical Docker: 2)</a></li>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-3/">Docker work flow in your team (Practical Docker: 3)</a></li>
+<li><a href="https://ahjumma.github.io/posts/practical-docker-4/">Advanced work flow for Docker (Practical Docker: 4)</a></li>
+</ol>
+
+<hr />
+
+<h3 id="what-is-docker">What is Docker</h3>
+
+<p><a href="https://www.docker.com/">Docker</a> is a container technology.</p>
+
+<p>It is called a <strong>container technology</strong> since it allows <strong>encapsulating and isolating</strong> your application with its dependencies.</p>
+
+<h3 id="container-technology-vs-virtual-machine">Container Technology VS Virtual Machine</h3>
+
+<p>People are more familiar with <strong>Virtual Machine</strong> technology which creates another OS layer on top of ones original OS.</p>
+
+<figure>
+    <img src="images/practical-docker/vm-vs-container.jpg"
+         alt="source (https://rancher.com/playing-catch-docker-containers/)"/> <figcaption>
+            <p>source (<a href="https://rancher.com/playing-catch-docker-containers/">https://rancher.com/playing-catch-docker-containers/</a>)</p>
+        </figcaption>
+</figure>
+
+
+<p>As seen from the above figure, container technology does not require additional OS to be installed.</p>
+
+<p>This <strong>encapsulated and isolated</strong> process shares your kernel along with other processes on your machine. This encapsulated process uses different kernel namespace which ensures security while eliminating the overhead of installing another OS.</p>
+
+<h3 id="similarities">Similarities</h3>
+
+<p>When installing a VM, you first download an image file with <strong>.iso</strong> extention usually.</p>
+
+<p>In Docker, a <strong>Dockerized image</strong> is what you use to get your Docker process up and running.</p>
+
+<h3 id="differences">Differences</h3>
+
+<p>VM file system is persistent, which means modifications to the VM file system stays the same after a reboot.</p>
+
+<p>In Docker, any time you run a process based on a Dockerized image, brand new process is created. However, there is a way to use persistent storage by mounting a volume to it.</p>
+
+<p>Following analogy can be useful in understanding the terminology difference between Docker image and Docker container.</p>
+
+<ol>
+<li><strong>Java Compiled Code : Java Process = Docker Image : Docker Container</strong></li>
+<li><strong>OOP Class : OOP Instance = Docker Image : Docker Container</strong></li>
+</ol>
+
+<p>As you see, from a Docker image, you can spin up multiple Docker containers as if you are running multiple Java processes based on a single compiled code.</p>
+
+<h3 id="why-use-docker">Why use Docker</h3>
+
+<ol>
+<li>Docker has much much less overhead in size and has better performance compared to VM technologies.</li>
+<li>All dependencies are encapsulated within a Docker image. This allows your development and production machine to maintain clean environments.</li>
+<li>If it works on your development machine, it will work on any other machines not limited to operating systems. This includes your deployment machine as well.</li>
+</ol>
+
+<hr />
+
+<h3 id="take-home-messages">Take home messages</h3>
+
+<p>Docker is:</p>
+
+<ol>
+<li>Container technology</li>
+<li>Shares linux kernel</li>
+<li>Less overheads than virtual machine</li>
+<li>Cross-platform</li>
+<li>Promotes single-responsibility principle. Single process per container</li>
+</ol>
+
+<p>In the next post of <strong>Practical Docker</strong> series, we will go over how to create a Docker image and run a Docker container.</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+     © 2018    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>. 
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
